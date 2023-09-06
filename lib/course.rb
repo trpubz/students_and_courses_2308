@@ -16,4 +16,8 @@ class Course
   def enroll(student)
     @students << student
   end
+
+  def grades
+    @students.map { |s| s.grade(@name) }
+  end
 end

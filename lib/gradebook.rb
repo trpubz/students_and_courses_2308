@@ -21,6 +21,16 @@ class Gradebook
 
   def students_below(threshold)
     @courses.map { |c| c.students }.flatten
-            .filter { |s| s.grade < threshold }
+            .filter { |s| s.ovr_grade < threshold }
+  end
+
+  def all_grades
+    grades_hash = Hash.new
+    @courses.each { |c| grades_hash[c] = c.grades }
+    return grades_hash
+  end
+
+  def students_in_range(min, max)
+    
   end
 end

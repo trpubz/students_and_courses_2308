@@ -15,20 +15,31 @@ RSpec.describe Student do
 
   it "starts with no scores" do
     morgan = Student.new({name: "Morgan", age: 21})
-    expect(morgan.scores).to eq([])
+    expect(morgan.scores).to eq({})
   end
 
-  it "can log scores" do 
+  it "can log scores" do
     morgan = Student.new({name: "Morgan", age: 21})
-    morgan.log_score(89)
-    morgan.log_score(78)
-    expect(morgan.scores).to eq([89, 78])
+    morgan.log_score("Calc", 89)
+    morgan.log_score("Calc", 78)
+    expect(morgan.scores["Calc"]).to eq([89, 78])
   end
 
-  it "can calculate grade" do 
+  it "can calculate grade" do
     morgan = Student.new({name: "Morgan", age: 21})
-    morgan.log_score(89)
-    morgan.log_score(78)
-    expect(morgan.grade).to eq (83.5)
+    morgan.log_score("Calc", 89)
+    morgan.log_score("Calc", 78)
+    expect(morgan.grade("Calc")).to eq (83.5)
+  end
+
+  describe '#ovr_grade' do
+    it 'returns overall grade in courses' do
+      morgan = Student.new({name: "Morgan", age: 21})
+      morgan.log_score("Calc", 89)
+      morgan.log_score("Calc", 78)
+      # grade("Calc") => 83.5
+      morgan.log_score("Maths", 84.5)
+      expect(morgan.ovr_grade).to eq 84.0
+    end
   end
 end
